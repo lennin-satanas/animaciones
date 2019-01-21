@@ -26,6 +26,24 @@
             background: yellow;
             border-radius: 50%;
         }
+        .btn{
+            text-align: center;
+            background: #7dc800;
+            padding: .6em .8em .8em;
+            border: none;
+            color: white;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer; /*manito */
+            /* sombra interna X y Y mas el color */
+            box-shadow: inset 0 -.2em rgba(0,0,0, .2); /*sobra negra transparente */
+            outline: 0; /*desaparecer borde azul*/
+            transition: .2s;
+            will-change: trasnform;
+        }
+        .btn:active{
+            transform: scale(.9);
+        }
 
     </style>
 </head>
@@ -33,7 +51,12 @@
 
     <div class="container">
         <div class="pelota" id="id_pelota">
-
+        </div>
+        <div class="buttons">
+            <button class="btn" id="play">Play</button>
+            <button class="btn" id="pause">Pause</button>
+            <button class="btn" id="stop">Stop</button>
+            <button class="btn" id="reverse">Reverse</button>
         </div>
     </div>
 
@@ -62,6 +85,11 @@
             
 
         })
+
+        const $playButton = document.getElementById('play');
+        const $pauseButton = document.getElementById('pause');
+        const $stopButton = document.getElementById('stop');
+        const $reverseButton = document.getElementById('reverse');
 
     </script>
     
