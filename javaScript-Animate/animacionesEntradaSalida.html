@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Animación de Entrada y Salida</title>
+    <style>
+        body{
+            display: flex;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cuadrado{
+            width: 200px;
+            height: 200px;
+            background: #7dc900;
+
+            /* forma abreviada de definir animation */
+            /* animation: name time estado; */
+            /* animation: animationIn .8s alternate infinite; */
+            /* animation: animationIn .8s;   */
+               animation: animationOut .8s forwards; /*forwards mantiene la posicion final */
+        }
+        /* defino la  keyframes de la animación */
+         /* @keyframes animationIn{
+            0%{
+                transform: translateY(-3000px);
+            }
+            60%{
+                transform: translateY(25px);
+            }
+            75%{
+                transform: translateY(-10px);
+            }
+
+            90%{
+                transform: translateY(5px);
+            }
+            /* si no defino el 100% se ubica en su posicion original 
+        }  */
+
+             
+
+
+
+         @keyframes animationOut{
+            0%{
+                transform: translateY(5px);
+            }
+            60%{
+                transform: translateY(-10px);
+            }
+            75%{
+                transform: translateY(25px);
+            } 
+            100%{
+                transform: translateY(-3000px);
+            }
+        } 
+
+    </style>
+</head>
+<body>
+    <div class="cuadrado"></div>
+</body>
+</html>
