@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Animación de Entrada y Salida</title>
+    <style>
+        body{
+            display: flex;
+            /* height: 100vh; */
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            flex-direction: column;
+        }
+        .overlay{
+             background: rgba(0,0,0,.5); 
+             position: fixed; /*simpre este sobre la pagina; así se haga scroll esta esta visible */
+             /* estirando la imagen a todo el ancho */
+             left: 0;
+             right: 0;
+             top: 0;
+             bottom: 0;
+             /* alineando el modal centrando */
+             display: flex;
+             align-items: center; /*en el eje y*/
+             justify-content: center;/* en el eje x*/
+
+             /* configuraciones para desapacere el overlay */
+             transition: 1.3s ease-in;
+             opacity: 0;
+             visibility: hidden;
+
+
+             
+        }
+        .overlay.active{
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal{
+           
+            /* width: 200px;
+            height: 200px; */
+            
+            width: 500px;
+            background: rgba(255,255,255, .8);
+
+            /* forma abreviada de definir animation */
+            /* animation: name time estado; */
+            /* animation: animationIn .8s alternate infinite; */
+            /* animation: animationIn .8s;   */
+            /* animation: animationIn .8s forwards; forwards mantiene la posicion final */
+            /*animation: modalIn .8s forwards; forwards mantiene la posicion final*/
+            padding: 2em;  /*32px no ha sido seteada*/
+            border-radius: .5em;
+            /* centrando el texto */
+            text-align: center;
+
+       
+        }
+        .btn{
+            /* text-align: center; alinear texto del boton */
+            background: lightgrey;
+            padding: .6em .8em .8em;
+            border: none;
+            color: white;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer; /*manito */
+            /*box-shadow: sombra interna X y Y mas el color */
+            box-shadow: inset 0 -.2em rgba(0,0,0, .2); /*sobra negra transparente */
+            outline: 0; /*desaparecer borde azul*/
+            transition: .2s;
+            will-change: trasnform; /*cuidar el render */
+        }
+        /* cuando pulse el boton */
+        .btn:active{
+            transform: scale(.9);
+        }
+
+        .btn.primary{
+            background: #7dc800;
+        }
+
+        .btn.warning{
+            background: red;
+        }
+
+
+        /* @keyframes animationIn{ */
+            @keyframes modalIn{
+            0%{
+                transform: translateY(-3000px);
+            }
+            60%{
+                transform: translateY(25px);
+            }
+            75%{
+                transform: translateY(-10px);
+            }
+
+            90%{
+                transform: translateY(5px);
+            }
+            /* si no defino el 100% se ubica en su posicion original */
+        }
+
+
+         @keyframes modalOut{
+            0%{
+                transform: translateY(5px);
+            }
+            60%{
+                transform: translateY(-10px);
+            }
+            75%{
+                transform: translateY(25px);
+            } 
+            100%{
+                transform: translateY(-3000px);
+            }
+        } 
+
+    </style>
+</head>
+<body>
+    
+    <!-- contenedor del modal -->
+    <!-- <div class="overlay active" id="overlay"> -->
+    <div class="overlay" id="overlay">
+        <div class="modal" id="modal">
+            <h1>Atención</h1>
+            <p>Hola esto es una ventana de Modal</p>
+            <p>¿te gustó?</p>
+            <div class="modal-buttons">
+                <!-- el boton con dos clase para diferenciar el color -->
+                <!-- le coloco un id al boton para llamarlo con el javascript -->
+                <button class="btn primary" id="hide-modal">Si</button>
+                <button class="btn warning" id="btn-negative">No</button>
+            </div>
+        </div>
+    </div> 
+    <img src="platzi.png" alt="" id="id-img">
+
+    <!-- incluyo el javascript para controlar los eventos -->
+    <script>
+
+        const $hideButton = document.getElementById('hide-modal');
+        const $modal = document.getElementById('modal');
+        const $overlay = document.getElementById('overlay');
+        const $img = document.getElementById('id-img');
+
+        // escuchar el evento de click
+        $hideButton.addEventListener('click', (event)=>{
+            // console.log(event);
+            $modal.style.animation = 'modalOut .8s forwards';
+            $overlay.classList.remove('active');  /*add para agregar*/
+
+        });
+
+        // muestra el modal y el overlay cuando le doy click a la imagen
+        $img.addEventListener('click',(event)=>{
+            $modal.style.animation = 'modalIn .8s forwards';
+            $overlay.classList.add('active');
+        });
+
+        // el overlay es padre del modal por tal motivo se cierra en cualquier parte
+        // $overlay.addEventListener('click', (event)=>{
+        //     $modal.style.animation = 'modalOut .8s forwards';
+        //     $overlay.classList.remove('active');
+        // });
+
+        $overlay.addEventListener('click', (event) => {
+        const flyoutModal = document.getElementById('modal');
+        const buttonsModal = document.getElementById('modal-buttons');
+        //permite controlar que no se realice ninguna acción si se pulsa el boton no
+        const btnnegative = document.getElementById('btn-negative');
+
+        let targetElement = event.target;
+        if (targetElement == flyoutModal ||
+            targetElement.parentNode == flyoutModal ||
+            targetElement.parentNode == buttonsModal  ||
+            targetElement == btnnegative) {
+          console.log('dentro');
+          console.log(event);
+        } else {
+          console.log('fuera');
+          console.log(event);
+          $overlay.classList.remove('active');
+          $modal.className = "modal out";
+        }
+      });
+
+    </script>
+   
+</body>
+</html>
