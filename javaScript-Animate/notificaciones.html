@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Notifications</title>
+  <style>
+    body{
+      background: url("platzi2.png");
+      background-size: 100%;
+      height: 200vh;
+      margin: 0;
+    }
+    .header{
+      background:  #1d3644;
+      height: 52px;
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 200px;
+    }
+    .notification{
+      color: white;
+      width: 50px;
+      /* heredando la altura del header */
+      height: inherit;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      position: relative;
+    }
+    .notification:before {
+      /* llamando la campana de los stilos */
+      content: "\f0f3";
+      font-family: "FontAwesome";
+      display: block;
+    }
+    .notification:after{
+     
+      font-size: 11px;
+      font-weight: bold;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      min-width: 14px;
+      height: 14px;
+
+      background: #ff4600;
+      border-radius: 50%;
+
+      font-family: Arial;
+      position: absolute;
+      top: 5px;
+      right: 5px;
+
+      /* content: "1"; */
+      /* volviendo dinamico el contador */
+      content: attr(data-count);
+
+      /* animando el seudo elemento */
+      opacity: 0;
+      transition: .3s;
+      transform: scale(.5);
+      will-change: opacity, transform;
+
+    }
+    .notification.show-count:after{
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .btn{
+            /* text-align: center; alinear texto del boton */
+            background: lightgrey;
+            padding: .6em .8em .8em;
+            border: none;
+            color: white;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer; /*manito */
+            /*box-shadow: sombra interna X y Y mas el color */
+            box-shadow: inset 0 -.2em rgba(0,0,0, .2); /*sobra negra transparente */
+            outline: 0; /*desaparecer borde azul*/
+            transition: .2s;
+            will-change: trasnform; /*cuidar el render */
+        }
+        /* cuando pulse el boton */
+        .btn:active{
+            transform: scale(.9);
+        }
+
+        .btn.primary{
+            background: #7dc800;
+        }
+
+        .btn.warning{
+            background: red;
+        }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+      <button class="btn primary" id="button">Enviar notificación</button>
+      <!-- <div class="notification" data-count="5"></div> -->
+      <div class="notification" id="notification"></div>
+  </header>
+  <script>
+
+    const $button = document.getElementById('button');
+    // constante utilizada para manejar la campana
+    const $bell = document.getElementById('notification');
+    
+    $button.addEventListener('click',()=>{
+      // leo el atributo data-count, que es indefinido
+      // Number combierte el String en nuemero
+      // || si esto es indefinido o si no coloca 0
+      const count = Number($bell.getAttribute('data-count')) || 0;
+      // setear el atributo - modificando el data-count
+      $bell.setAttribute('data-count', count + 1);
+
+      // le agrego show count para hacer visible la campana/
+      $bell.classList.add('show-count');
+    });
+  </script>
+</body>
+</html>

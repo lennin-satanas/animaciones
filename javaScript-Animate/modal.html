@@ -58,6 +58,7 @@
             border-radius: .5em;
             /* centrando el texto */
             text-align: center;
+            position: relative;
 
        
         }
@@ -88,6 +89,26 @@
         .btn.warning{
             background: red;
         }
+
+        .modal-close{
+        padding: .4em .4em .5em; 
+        border-radius: 50%; 
+        border: 3px solid currentcolor; 
+        color: #ff463b; 
+        position: absolute; 
+        right: 11px; 
+        top: 10px; 
+        text-align: center; 
+        font-weight: 600; 
+        font-size: 1.5em; 
+        line-height: .5em;
+        cursor: pointer;
+      }
+
+      .modal-close:active{
+          transform: scale(.9);
+      }
+
 
 
         /* @keyframes animationIn{ */
@@ -132,6 +153,7 @@
     <!-- <div class="overlay active" id="overlay"> -->
     <div class="overlay" id="overlay">
         <div class="modal" id="modal">
+            
             <h1>Atención</h1>
             <p>Hola esto es una ventana de Modal</p>
             <p>¿te gustó?</p>
@@ -140,8 +162,12 @@
                 <!-- le coloco un id al boton para llamarlo con el javascript -->
                 <button class="btn primary" id="hide-modal">Si</button>
                 <button class="btn warning" id="btn-negative">No</button>
+                <button id="modal-close" class="modal-close">x</button>
+               
             </div>
+            
         </div>
+       
     </div> 
     <img src="platzi.png" alt="" id="id-img">
 
@@ -152,6 +178,8 @@
         const $modal = document.getElementById('modal');
         const $overlay = document.getElementById('overlay');
         const $img = document.getElementById('id-img');
+        const $modalClose = document.getElementById('modal-close');
+        
 
         // escuchar el evento de click
         $hideButton.addEventListener('click', (event)=>{
@@ -159,6 +187,11 @@
             $modal.style.animation = 'modalOut .8s forwards';
             $overlay.classList.remove('active');  /*add para agregar*/
 
+        });
+
+        $modalClose.addEventListener('click', (event)=>{
+        $modal.style.animation='modalOut .8s forwards';
+        $overlay.classList.remove('active');
         });
 
         // muestra el modal y el overlay cuando le doy click a la imagen
@@ -178,21 +211,29 @@
         const buttonsModal = document.getElementById('modal-buttons');
         //permite controlar que no se realice ninguna acción si se pulsa el boton no
         const btnnegative = document.getElementById('btn-negative');
+        // const $modalClose = document.getElementById('modal-close');
 
         let targetElement = event.target;
         if (targetElement == flyoutModal ||
             targetElement.parentNode == flyoutModal ||
             targetElement.parentNode == buttonsModal  ||
-            targetElement == btnnegative) {
+            targetElement == btnnegative){
           console.log('dentro');
           console.log(event);
-        } else {
+        // }else if(targetElement == $modalClose){
+        //     $modal.style.animation='modalIn .8s forwards';
+        //     $overlay.classList.remove('active');
+        //     console.log('vida puta');
+        }
+        else{
           console.log('fuera');
           console.log(event);
           $overlay.classList.remove('active');
           $modal.className = "modal out";
         }
       });
+
+      
 
     </script>
    
