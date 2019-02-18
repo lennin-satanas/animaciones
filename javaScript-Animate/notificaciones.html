@@ -31,13 +31,21 @@
       justify-content: center;
 
       position: relative;
+
+     
+
     }
+    
     .notification:before {
       /* llamando la campana de los stilos */
       content: "\f0f3";
       font-family: "FontAwesome";
       display: block;
+      transform-origin: center top;
+      
     }
+
+    
     .notification:after{
      
       font-size: 11px;
@@ -68,6 +76,39 @@
       transform: scale(.5);
       will-change: opacity, transform;
 
+    }
+
+    .notification.notify:before{
+      /* animando la campana */
+      animation-name: bell;
+      animation-duration: 1s;
+      /* animation-iteration-count: infinite; */
+      /* modificando el eje de la campana */
+      /* el terminal de la animación sea mas lenta */
+      animation-timing-function: ease-out;
+    }
+    @keyframes bell{
+      0%{
+        transform: rotate(35deg);
+      }
+      12.5%{
+        transform: rotate(-30deg);
+      }
+      25%{
+        transform: rotate(25deg);
+      }
+      37.5%{
+        transform: rotate(-20deg);
+      }
+      50%{
+        transform: rotate(20deg);
+      }
+      75%{
+        transform: rotate(-10deg)
+      }
+      100%{
+        transform: rotate(0deg);
+      }
     }
     .notification.show-count:after{
       opacity: 1;
@@ -126,7 +167,15 @@
 
       // le agrego show count para hacer visible la campana/
       $bell.classList.add('show-count');
+      $bell.classList.add('notify');  
+      // la campana se anima una solavez
     });
+    // para animar la campana cuando pulse el boton click le debo quitar la clase
+    // cuando se acaba la animación para eso detecto un evento
+
+    $bell.addEventListener('animationend',()=>{
+      $bell.classList.remove('notify');
+    })
   </script>
 </body>
 </html>

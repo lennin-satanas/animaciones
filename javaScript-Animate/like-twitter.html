@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Animando el like de Twitter con Sprites</title>
+    <style>
+        body{
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            align-items: center;
+            justify-content: center;
+        }
+        .like{
+            cursor: pointer;
+            /* width: 100px;
+            height: 100px; */
+
+            /* optimizando las imagenes para pantallas doble retina */
+            height: 50px;
+            width: 50px;
+
+
+            /* background: red; */
+            background-image: url(corazon.png);
+            /* riseze de la imagen a la mitad */
+            /* responsive y retina */
+            background-size: 1450px 50px;
+
+            /* 2900 / 29 = 100px */
+
+
+            /* ejemplo de animación por pasos */
+            
+          
+        }
+
+        .like.is-liked{
+            animation-name: like;
+            animation-duration: .8s;
+            /* animation-timing-function: steps(5); */ 
+            animation-timing-function: steps(28); 
+            /* background-position: -2800px 0; */
+            /* background-position: right; */
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes like{
+            0%{
+                background-position: 0 0;
+            }
+            100%{
+                /* background-position: -2800px 0; */
+                background-position: right;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="tweet-box">
+     <div class="like" id="like"></div>
+    </div>
+    <script>
+        const $like = document.getElementById('like');
+        $like.addEventListener('click', (event)=>{
+            // console.log(event);
+            //agregar la clase
+            // $like.classList.add('is-liked');
+            // cada clik agrega o quita una clase
+            $like.classList.toggle('is-liked');
+        });
+    </script>
+</body>
+</html>
